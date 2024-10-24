@@ -1,6 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'models/metadata.dart';
+import '../models/metadata.dart';
 
 class Db {
   static final Db _instance = Db._internal();
