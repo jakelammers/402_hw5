@@ -1,9 +1,9 @@
-// screens/camera_screen.dart
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import '../services/location_service.dart';
 import '../services/weather_service.dart';
+import 'edit_screen.dart';
 import 'edit_screen.dart';
 
 class CameraScreen extends StatefulWidget {
@@ -12,7 +12,7 @@ class CameraScreen extends StatefulWidget {
 }
 
 class _CameraScreenState extends State<CameraScreen> {
-  late CameraController _controller;
+  CameraController? _controller;
   late Future<void> _initializeControllerFuture;
   String location = 'Loading location...';
   String weather = 'Loading weather...';
@@ -21,14 +21,23 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   void initState() {
     super.initState();
-    _initializeCamera();
+    _initializeControllerFuture = _initializeCamera();
     _startLocationAndWeatherUpdates();
   }
 
   Future<void> _initializeCamera() async {
     final cameras = await availableCameras();
-    _controller = CameraController(cameras[0], ResolutionPreset.medium);
-    _initializeControllerFuture = _controller.initialize();
+    if (cameras.isEmpty) {
+      throw 'No cameras available';
+    }
+
+    _controller = CameraController(
+      cameras[0],
+      ResolutionPreset.medium,
+      enableAudio: false,
+    );
+
+    return _controller!.initialize();
   }
 
   Future<void> _startLocationAndWeatherUpdates() async {
@@ -49,12 +58,16 @@ class _CameraScreenState extends State<CameraScreen> {
       });
     } catch (e) {
       print('Error getting location or weather: $e');
+      setState(() {
+        location = 'Location unavailable';
+        weather = 'Weather unavailable';
+      });
     }
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller?.dispose();
     super.dispose();
   }
 
@@ -69,8 +82,20 @@ class _CameraScreenState extends State<CameraScreen> {
               future: _initializeControllerFuture,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text('Error: ${snapshot.error}'),
+                    );
+                  }
+
+                  if (_controller == null || !_controller!.value.isInitialized) {
+                    return Center(
+                      child: Text('Failed to initialize camera'),
+                    );
+                  }
+
                   return photoFile == null
-                      ? CameraPreview(_controller)
+                      ? CameraPreview(_controller!)
                       : Image.file(File(photoFile!.path));
                 } else {
                   return Center(child: CircularProgressIndicator());
@@ -115,12 +140,17 @@ class _CameraScreenState extends State<CameraScreen> {
   Future<void> _takePhoto() async {
     try {
       await _initializeControllerFuture;
-      final photo = await _controller.takePicture();
+      if (_controller == null) return;
+
+      final photo = await _controller!.takePicture();
       setState(() {
         photoFile = photo;
       });
     } catch (e) {
       print('Error taking photo: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error taking photo: $e')),
+      );
     }
   }
 
