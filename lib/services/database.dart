@@ -2,6 +2,12 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import '../models/metadata.dart';
 
+/**
+ * @author jakelammers & claude 3.5
+ * @date 10-24-24
+ *
+ * database for the windowpane app, enables data persistence.
+ */
 class Db {
   static final Db _instance = Db._internal();
   factory Db() => _instance;

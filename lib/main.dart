@@ -6,8 +6,13 @@ import 'screens/home_screen.dart';
 import 'screens/list_screen.dart';
 import 'screens/grid_screen.dart';
 import 'screens/camera_screen.dart';
-import 'services/database.dart';
 
+/**
+ * @author jakelammers & claude 3.5
+ * @date 10-24-24
+ *
+ * main entrypoint for the windowpane app
+ */
 late List<CameraDescription> cameras;
 
 void main() async {
@@ -63,6 +68,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('WindowPane'),
         actions: [
           IconButton(

@@ -1,3 +1,9 @@
+/**
+ * @author jakelammers & claude 3.5
+ * @date 10-24-24
+ *
+ * settings model for the settings page
+ */
 class AppSettings {
   bool isDarkMode = false;
   bool useCelsius = true;

@@ -4,6 +4,12 @@ import 'package:flutter/material.dart';
 import '../models/metadata.dart';
 import '../services/photo_service.dart';
 
+/**
+ * @author jakelammers & claude 3.5
+ * @date 10-24-24
+ *
+ * list screen for the windowpane app
+ */
 class ListScreen extends StatefulWidget {
   @override
   _ListScreenState createState() => _ListScreenState();

@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import '../models/settings.dart';
 
+/**
+ * @author jakelammers & claude 3.5
+ * @date 10-24-24
+ *
+ * settings screen for the windowpane app
+ */
 class SettingsScreen extends StatefulWidget {
   final AppSettings settings;
 

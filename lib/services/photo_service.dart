@@ -2,6 +2,12 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import '../models/metadata.dart';
 
+/**
+ * @author jakelammers & claude 3.5
+ * @date 10-24-24
+ *
+ * photo service for hte windowpane app
+ */
 class PhotoService {
   static Database? _database;
 

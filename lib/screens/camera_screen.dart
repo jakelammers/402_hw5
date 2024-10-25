@@ -6,6 +6,12 @@ import '../services/weather_service.dart';
 import 'edit_screen.dart';
 import 'edit_screen.dart';
 
+/**
+ * @author jakelammers & claude 3.5
+ * @date 10-24-24
+ *
+ * camera screen in the windowpane
+ */
 class CameraScreen extends StatefulWidget {
   @override
   _CameraScreenState createState() => _CameraScreenState();

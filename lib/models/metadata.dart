@@ -1,3 +1,9 @@
+/**
+ * @author jakelammers & claude 3.5
+ * @date 10-24-24
+ *
+ * metadata for photos in the windowpane
+ */
 class PhotoMetadata {
   final int? id;
   final String path;

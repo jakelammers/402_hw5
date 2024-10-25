@@ -4,6 +4,12 @@ import 'package:flutter/material.dart';
 import '../models/metadata.dart';
 import '../services/photo_service.dart';
 
+/**
+ * @author jakelammers & claude 3.5
+ * @date 10-24-24
+ *
+ * home screen for the windowpane app
+ */
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();

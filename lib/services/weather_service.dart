@@ -1,7 +1,12 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-
+/**
+ * @author jakelammers & claude 3.5
+ * @date 10-24-24
+ *
+ * weather service for hte windowpane app
+ */
 class WeatherService {
   static const String apiKey = 'YOUR_API_KEY'; // Get from OpenWeatherMap
 
